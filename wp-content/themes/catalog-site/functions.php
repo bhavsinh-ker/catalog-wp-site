@@ -50,7 +50,8 @@ if ( ! function_exists( 'catalog_site_setup' ) ) :
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus(
 			array(
-				'menu-1' => esc_html__( 'Primary', 'kit_theme' ),
+				'primary-menu' => esc_html__( 'Primary Menu', 'kit_theme' ),
+				'footer-menu' => esc_html__( 'Footer Menu', 'kit_theme' ),
 			)
 		);
 
