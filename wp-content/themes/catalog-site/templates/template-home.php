@@ -16,6 +16,8 @@ get_header();
 	while ( have_posts() ) :
 		the_post();
 			$post_id = get_the_ID();
+
+			/* Banner section data */
 			$banner_image = get_field('banner_image', $post_id);
 			$banner_image_url = "";
 			if(isset($banner_image) && $banner_image!="") {
@@ -27,6 +29,23 @@ get_header();
 			$banner_title = get_field('banner_title', $post_id);
 			$banner_button = get_field('banner_button', $post_id);
 			$banner_content = get_field('banner_content', $post_id);
+			/* EOF Banner section data */
+
+			/* About Us section data */
+			$about_us_image = get_field('about_us_section_image', $post_id);
+			if( $about_us_image!="" ) {
+				$about_us_image = wp_get_attachment_image($about_us_image, array(450, 260));
+			}
+			$about_us_title = get_field('about_us_section_title', $post_id);
+			$about_us_button = get_field('about_us_section_button', $post_id);
+			$about_us_content = get_field('about_us_section_content', $post_id);
+			/* EOF About Us section data */
+
+			/* Why Choose Us section data */
+			$why_choose_us_title = get_field('why_choose_us_section_title', $post_id);
+			$why_choose_us_cta_button = get_field('why_choose_us_section_cta_button', $post_id);
+			$why_choose_us_key_factors = get_field('why_choose_us_section_key_factors', $post_id);
+			/* EOF Why Choose Us section data */
 		?>
 	<!-- Home Banner -->
 	<section id="homeHero" class="home-hero-section bg-dark text-secondary py-5 text-center" <?php echo $banner_image_url; ?>>
@@ -56,15 +75,23 @@ get_header();
 	<section id="homeAboutUs" class="home-about-us-section py-5">
 		<div class="container">
 			<div class="row">
+				<?php if( $about_us_image!="" ) { ?>
 				<div class="col-md-5 order-md-2 mb-3 mb-md-0 text-center text-md-end">
-					<img src="https://dummyimage.com/450x260/f8f9fa/6c757d.jpg" alt="About Us" class="img-fluid">
+					<?php echo $about_us_image; ?>
 				</div>
+				<?php } ?>
 				<div class="col-md-7 order-md-1">
-					<h3>About Us</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc purus. Cras ut tempus diam, nec convallis mauris. Etiam a mollis odio.</p>
-					<p>Suspendisse blandit leo molestie eleifend vehicula. Integer quis bibendum lacus, vitae ultricies ante. Cras et tortor vel nulla luctus auctor.</p>
-					<p>Nullam egestas libero elit, quis elementum tortor tincidunt eu. Vivamus consequat orci erat, et eleifend mi posuere nec. Vestibulum ultricies ornare feugiat.</p>
-					<a href="./about-us.html" class="btn btn-outline-primary">Read More</a>
+					<h3><?php echo $about_us_title; ?></h3>
+					<?php echo $about_us_content; ?>
+					<?php 
+						if(isset($about_us_button['url'])) {
+							$about_us_button_title = (isset($about_us_button['title']) && $about_us_button['title']!="") ? $about_us_button['title'] : __( 'Read More', 'kit_theme' );
+							$about_us_button_url = (isset($about_us_button['url']) && $about_us_button['url']!="") ? $about_us_button['url'] : '#';
+							$about_us_button_target = (isset($about_us_button['target']) && $about_us_button['target']!="") ? 'target="'.$about_us_button['target'].'"' : '';
+					?>
+						<a href="<?php echo $about_us_button_url; ?>" class="btn btn-outline-primary"<?php echo $about_us_button_target; ?>><?php echo $about_us_button_title; ?></a>
+					<?php } ?>
+					
 				</div>
 			</div>
 		</div>
@@ -76,31 +103,39 @@ get_header();
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mb-4 text-center">
-					<h3 class="p-0 m-0">Why Choose Us</h3>
+					<h3 class="p-0 m-0"><?php echo $why_choose_us_title; ?></h3>
 				</div>
+				<?php 
+					if( !empty($why_choose_us_key_factors) ) {
+						foreach( $why_choose_us_key_factors as $key_factor ) {
+							$key_factor_icon = isset($key_factor['why_choose_us_key_factors_icon_html']) && $key_factor['why_choose_us_key_factors_icon_html']!="" ? $key_factor['why_choose_us_key_factors_icon_html'] : "";
+							$key_factor_title = $key_factor['why_choose_us_key_factors_title'];
+							$key_factor_description = $key_factor['why_choose_us_key_description'];
+							?>
 				<div class="col-md-4 mb-2 mb-md-0">
+					<?php if( $key_factor_icon!="" ) { ?>
 					<div class="h1 d-inline-block">
-						<i class="bi-alarm"></i>
+						<?php echo $key_factor_icon; ?>
 					</div>
-					<h4>On Time Delivery</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc purus. Cras ut tempus diam, nec convallis mauris. Etiam a mollis odio.</p>
+					<?php } ?>
+					<h4><?php echo $key_factor_title; ?></h4>
+					<p><?php echo $key_factor_description; ?></p>
 				</div>
-				<div class="col-md-4 mb-2 mb-md-0">
-					<div class="h1 d-inline-block">
-						<i class="bi bi-key"></i>
-					</div>
-					<h4>Safe and secure</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc purus. Cras ut tempus diam, nec convallis mauris. Etiam a mollis odio.</p>
-				</div>
-				<div class="col-md-4 mb-2 mb-md-0">
-					<div class="h1 d-inline-block">
-						<i class="bi bi-headset"></i>
-					</div>
-					<h4>Excellent Customer Support</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in nunc purus. Cras ut tempus diam, nec convallis mauris. Etiam a mollis odio.</p>
-				</div>
+							<?php
+						}
+					}
+				?>
+				
+				
 				<div class="col-12 mt-0 mt-md-3 text-center">
-					<a href="./products.html" class="btn btn-outline-primary">Explore Our Products</a>
+					<?php 
+						if(isset($why_choose_us_cta_button['url'])) {
+							$why_choose_us_cta_button_title = (isset($why_choose_us_cta_button['title']) && $why_choose_us_cta_button['title']!="") ? $why_choose_us_cta_button['title'] : __( 'Explore Our Products', 'kit_theme' );
+							$why_choose_us_cta_button_url = (isset($why_choose_us_cta_button['url']) && $why_choose_us_cta_button['url']!="") ? $why_choose_us_cta_button['url'] : '#';
+							$why_choose_us_cta_button_target = (isset($why_choose_us_cta_button['target']) && $why_choose_us_cta_button['target']!="") ? 'target="'.$why_choose_us_cta_button['target'].'"' : '';
+					?>
+						<a href="<?php echo $why_choose_us_cta_button_url; ?>" class="btn btn-outline-primary"<?php echo $why_choose_us_cta_button_target; ?>><?php echo $why_choose_us_cta_button_title; ?></a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
