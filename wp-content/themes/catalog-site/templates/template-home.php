@@ -46,6 +46,23 @@ get_header();
 			$why_choose_us_cta_button = get_field('why_choose_us_section_cta_button', $post_id);
 			$why_choose_us_key_factors = get_field('why_choose_us_section_key_factors', $post_id);
 			/* EOF Why Choose Us section data */
+
+			/* Featured Products section data */
+			$featured_products_ids = get_field('featured_products', $post_id);
+			if( !empty($featured_products_ids) ) {
+				$featured_products_section_title = get_field('featured_products_section_title', $post_id);
+				if( $featured_products_section_title=="" ) {
+					$featured_products_section_title = __( 'Featured Products', 'kit_theme' );
+				}
+				$featured_products_cta_button = get_field('featured_products_cta_button', $post_id);
+
+				$args = array(
+					"post__in" 	=> $featured_products_ids,
+					"post_type" => "product"
+				);
+				$featured_products = new WP_Query( $args );
+			}			
+			/* EOF Featured Products section data */
 		?>
 	<!-- Home Banner -->
 	<section id="homeHero" class="home-hero-section bg-dark text-secondary py-5 text-center" <?php echo $banner_image_url; ?>>
@@ -142,29 +159,41 @@ get_header();
 	</section>
 	<!-- EOF Home Why Choose Us -->
 
+	<?php if( !empty($featured_products_ids) ) { ?>
 	<!-- Home Featured Products -->
 	<section id="homeFeaturedProducts" class="home-featured-products py-5">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
-					<h3 class="mb-4">Featured Products</h3>
+					<h3 class="mb-4"><?php echo $featured_products_section_title; ?></h3>
 				</div>
+
+				<?php 
+					if( $featured_products->have_posts() ) {
+				?>
 				<!-- Featured Products List -->
+				<?php 
+					while( $featured_products->have_posts() ) { 
+						$featured_products->the_post();
+						$product_link = get_the_permalink();
+					?>
 				<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
 					<div class="card shadow rounded-0">
-						<a href="./product.html">
-							<img src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg" class="card-img-top" alt="Product title">
+						<a href="<?php echo $product_link; ?>">
+							<?php the_post_thumbnail( 'product-small-thumb', array(
+								"class" => "card-img-top"
+							) ); ?>
 						</a>
 						<div class="card-body">
-							<a href="./product.html" class="text-dark text-decoration-none">
-								<h5 class="card-title text-capitalize">Product Title</h5>
+							<a href="<?php echo $product_link; ?>" class="text-dark text-decoration-none">
+								<h5 class="card-title text-capitalize"><?php the_title(); ?></h5>
 							</a>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							<p class="card-text"><?php the_excerpt(); ?></p>
 						</div>
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">
 								<small class="text-muted">
-									<b>Price:</b><span class="float-end">$12.00</span>
+									<b>Price:</b><span class="float-end"><?php the_field( 'price' ); ?></span>
 								</small>
 							</li>
 							<li class="list-group-item">
@@ -179,120 +208,33 @@ get_header();
 							</li>
 						</ul>
 						<div class="card-body">
-							<a href="./product.html" class="btn btn-outline-primary">View Product</a>
+							<a href="<?php echo $product_link; ?>" class="btn btn-outline-primary"><?php _e( 'View Product', 'kit_theme' ); ?></a>
 						</div>
 					</div>
 				</div>
-
-				<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-					<div class="card shadow rounded-0">
-						<a href="./product.html">
-							<img src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg" class="card-img-top" alt="Product title">
-						</a>
-						<div class="card-body">
-							<a href="./product.html" class="text-dark text-decoration-none">
-								<h5 class="card-title text-capitalize">Product Title</h5>
-							</a>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Price:</b><span class="float-end">$12.00</span>
-								</small>
-							</li>
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Color:</b><span class="float-end">Red</span>
-								</small>
-							</li>
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Size:</b><span class="float-end">XL</span>
-								</small>
-							</li>
-						</ul>
-						<div class="card-body">
-							<a href="./product.html" class="btn btn-outline-primary">View Product</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-					<div class="card shadow rounded-0">
-						<a href="./product.html">
-							<img src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg" class="card-img-top" alt="Product title">
-						</a>
-						<div class="card-body">
-							<a href="./product.html" class="text-dark text-decoration-none">
-								<h5 class="card-title text-capitalize">Product Title</h5>
-							</a>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Price:</b><span class="float-end">$12.00</span>
-								</small>
-							</li>
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Color:</b><span class="float-end">Red</span>
-								</small>
-							</li>
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Size:</b><span class="float-end">XL</span>
-								</small>
-							</li>
-						</ul>
-						<div class="card-body">
-							<a href="./product.html" class="btn btn-outline-primary">View Product</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-					<div class="card shadow rounded-0">
-						<a href="./product.html">
-							<img src="https://dummyimage.com/285x140/f8f9fa/6c757d.jpg" class="card-img-top" alt="Product title">
-						</a>
-						<div class="card-body">
-							<a href="./product.html" class="text-dark text-decoration-none">
-								<h5 class="card-title text-capitalize">Product Title</h5>
-							</a>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Price:</b><span class="float-end">$12.00</span>
-								</small>
-							</li>
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Color:</b><span class="float-end">Red</span>
-								</small>
-							</li>
-							<li class="list-group-item">
-								<small class="text-muted">
-									<b>Size:</b><span class="float-end">XL</span>
-								</small>
-							</li>
-						</ul>
-						<div class="card-body">
-							<a href="./product.html" class="btn btn-outline-primary">View Product</a>
-						</div>
-					</div>
-				</div>                    
+				<?php } ?>
 				<!-- EOF Featured Products List -->
+				<?php 
+					} 
+					wp_reset_postdata(); 
+				?>
+
+				<?php 
+					if(isset($why_choose_us_cta_button['url'])) {
+						$featured_products_cta_button_title = (isset($featured_products_cta_button['title']) && $featured_products_cta_button['title']!="") ? $featured_products_cta_button['title'] : __( 'View All Products', 'kit_theme' );
+						$featured_products_cta_button_url = (isset($featured_products_cta_button['url']) && $featured_products_cta_button['url']!="") ? $featured_products_cta_button['url'] : '#';
+						$featured_products_cta_button_target = (isset($featured_products_cta_button['target']) && $featured_products_cta_button['target']!="") ? 'target="'.$featured_products_cta_button['target'].'"' : '';
+					?>
 				<div class="col-12 mt-4 text-center">
-					<a href="./products.html" class="btn btn-outline-primary">View All Products</a>
+				
+						<a href="<?php echo $featured_products_cta_button_url; ?>" class="btn btn-outline-primary"<?php echo $featured_products_cta_button_target; ?>><?php echo $featured_products_cta_button_title; ?></a>
 				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</section>
 	<!-- EOF Home Featured Products -->
+	<?php } ?>
 
 	<!-- Featured Blogs -->
 	<section id="homeFeaturedBlogs" class="home-featured-blogs bg-light py-5">
