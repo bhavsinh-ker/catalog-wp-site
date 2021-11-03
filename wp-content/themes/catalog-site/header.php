@@ -28,7 +28,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-9 col-md-3">
-				<a href="index.html" class="text-dark text-decoration-none">
+				<a href="<?php bloginfo('home'); ?>" class="text-dark text-decoration-none">
 					<?php 
 						$site_logo = get_custom_logo();
 						if($site_logo!="") {
