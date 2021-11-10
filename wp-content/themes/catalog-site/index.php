@@ -31,7 +31,7 @@ get_template_part( 'template-parts/page', 'banner', $args );
 
 					<?php if ( have_posts() ) : ?>
 					<!-- Blog List Section -->
-					<div class="row">
+					<div class="row blogs-data">
 						<?php 
 							/* Start the Loop */
 							while ( have_posts() ) :
@@ -55,7 +55,7 @@ get_template_part( 'template-parts/page', 'banner', $args );
 
 					<!-- Load More -->
 					<div class="text-center">
-						<a href="#" class="btn btn-outline-primary">Load More</a>
+						<a href="#" class="btn btn-outline-primary load-more-blogs"><?php _e( 'Load More', 'kit_theme' ); ?></a>
 					</div>
 					<!-- EOF Load More -->
 

@@ -152,6 +152,11 @@ function catalog_site_scripts() {
 	wp_enqueue_script( 'catalog-site-bootstrap-min', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', array( 'jquery' ), CATALOG_SITE_VERSION, true );
 
 	wp_register_script( 'catalog-site-custom', get_template_directory_uri() . '/assets/js/custom.js', array( 'jquery' ), CATALOG_SITE_VERSION, true );
+	$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+	wp_localize_script( 'catalog-site-custom', 'myAjax', array( 
+		'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		'blogs_paged' => $paged
+	));
 	wp_enqueue_script( 'catalog-site-custom' );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
