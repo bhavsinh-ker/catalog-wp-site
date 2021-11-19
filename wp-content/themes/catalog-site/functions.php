@@ -52,6 +52,7 @@ if ( ! function_exists( 'catalog_site_setup' ) ) :
 			array(
 				'primary-menu' => esc_html__( 'Primary Menu', 'kit_theme' ),
 				'footer-menu' => esc_html__( 'Footer Menu', 'kit_theme' ),
+				'mobile-menu' => esc_html__( 'Mobile Menu', 'kit_theme' )
 			)
 		);
 
