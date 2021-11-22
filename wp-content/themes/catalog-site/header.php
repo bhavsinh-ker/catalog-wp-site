@@ -18,65 +18,6 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
 	<?php wp_head(); ?>
-
-	<style>
-		.catlog-site-mobile-menu {
-			width: 80%;
-			max-width: 290px;
-			position: fixed;
-			top: 0px;
-			right: -100%;
-			height: 100%;
-			z-index: 99999;
-			-webkit-transition: all 0.5s ease-in-out;
-			-moz-transition: all 0.5s ease-in-out;
-			-ms-transition: all 0.5s ease-in-out;
-			-o-transition: all 0.5s ease-in-out;
-			transition: all 0.5s ease-in-out;
-		}
-		.catlog-site-mobile-menu.active {
-			right: 0;
-		}
-		.catlog-site-mobile-menu .menu-mobile-menu-container ul {
-			list-style: none;
-			margin: 0;
-    		padding: 0;
-		}
-		.catlog-site-mobile-menu .menu-mobile-menu-container ul li a,
-		.catlog-site-mobile-menu .catlog-site-mobile-menu-close {
-			padding: 10px 20px;
-			display: block;
-			text-decoration: none;
-			color: #000;
-			text-transform: capitalize;
-			font-size: 18px;
-			border-top: 1px solid #CCC;
-		}
-		.catlog-site-mobile-menu .menu-mobile-menu-container ul li:last-child>a {
-			border-bottom: 1px solid #CCC;
-		}
-		.catlog-site-mobile-menu .menu-mobile-menu-container ul li ul {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			z-index: 5;
-			background-color: #f8f9fa;
-			top: 0;
-			right: -100%;
-			-webkit-transition: all 0.5s ease-in-out;
-			-moz-transition: all 0.5s ease-in-out;
-			-ms-transition: all 0.5s ease-in-out;
-			-o-transition: all 0.5s ease-in-out;
-			transition: all 0.5s ease-in-out;
-		}
-		.catlog-site-mobile-menu .menu-mobile-menu-container ul li ul.active {
-			right: 0;
-		}
-		.catlog-site-mobile-menu .catlog-site-mobile-menu-close {
-			border-top: 0;
-		}
-	</style>
-
 </head>
 
 <body <?php body_class(); ?>>

@@ -26,43 +26,6 @@
 @mixin btn_style {background-color: $grey; color: $white; @include my_font_regular; text-transform: uppercase; padding: 10px 15px;}
 @mixin background_gradient($value1:#9498bf, $value2: #6c3f97, $deg: 180deg) {background: -webkit-linear-gradient($deg, $value1, $value2);background: -o-linear-gradient($deg, $value1, $value2);background: -moz-linear-gradient($deg, $value1, $value2);background: linear-gradient($deg, $value1, $value2);}
 
-/** Bold **/
-@font-face {
-	font-family: 'Conv_DINCond-Bold';
-	src: url('./assets/fonts/DINCond-Bold.eot');
-	src: local('☺'), url('./assets/fonts/DINCond-Bold.woff') format('woff'), 
-  url('./assets/fonts/DINCond-Bold.ttf') format('truetype'), 
-  url('./assets/fonts/DINCond-Bold.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-/** Light **/
-@font-face {
-	font-family: 'Conv_DINCond-Light_0';
-	src: url('./assets/fonts/DINCond-Light_0.eot');
-	src: local('☺'), url('./assets/fonts/DINCond-Light_0.woff') format('woff'),
-   url('./assets/fonts/DINCond-Light_0.ttf') format('truetype'), 
-   url('./assets/fonts/DINCond-Light_0.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-/** Regular **/
-@font-face {
-	font-family: 'Conv_DINCond-Regular';
-	src: url('./assets/fonts/DINCond-Regular.eot');
-	src: local('☺'), url('./assets/fonts/DINCond-Regular.woff') format('woff'), 
-	url('./assets/fonts/DINCond-Regular.ttf') format('truetype'), 
-	url('./assets/fonts/DINCond-Regular.svg') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-@mixin font_main {font-family: 'Conv_DINCond-Regular';}
-@mixin font_main_regular {@include font_main;}
-@mixin font_main_light {font-family: 'Conv_DINCond-Light_0';}
-@mixin font_main_bold {font-family: 'Conv_DINCond-Bold';}
-
 // Center block
 @mixin center-block {
 	display: block;
